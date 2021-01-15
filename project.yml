@@ -1,0 +1,24 @@
+name: Networking
+options:
+  bundleIdPrefix: com.rosberry
+targets:
+  Networking:
+    type: framework
+    platform: iOS
+    sources: [Sources/Networking]
+    info:
+      path: Networking.xcodeproj/Networking.plist
+  NetworkingTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "12.0"
+    sources: [Tests/NetworkingTests]
+    info:
+      path: Networking.xcodeproj/NetworkingTests.plist
+  Example:
+    type: application
+    platform: iOS
+    deploymentTarget: "12.0"
+    sources: [Sources/Example]
+    info:
+      path: Networking.xcodeproj/Example.plist
