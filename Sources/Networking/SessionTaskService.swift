@@ -124,7 +124,9 @@ open class SessionTaskService {
         downloadTask(withResumeData: resumeData) { result in
             switch result {
             case .success(let data):
-                success(data)
+                DispatchQueue.main.async {
+                    success(data)
+                }
             case .failure(let error):
                 failure?(error)
             }
@@ -136,16 +138,18 @@ open class SessionTaskService {
     private func handle<Response>(_ response: Response?,
                                   error: Swift.Error?,
                                   urlResponse: URLResponse?,
-                                  completion: ResultCompletion<Response>) {
-        let error = error ?? self.error(from: urlResponse)
-        if let error = error {
-            completion(.failure(error))
-        }
-        else if let response = response {
-            completion(.success(response))
-        }
-        else {
-            completion(.failure(NetworkingError.noData))
+                                  completion: @escaping (ResultCompletion<Response>)) {
+        DispatchQueue.main.async {
+            let error = error ?? self.error(from: urlResponse)
+            if let errors = error {
+                completion(.failure(errors))
+            }
+            else if let response = response {
+                completion(.success(response))
+            }
+            else {
+                completion(.failure(NetworkingError.noData))
+            }
         }
     }
 

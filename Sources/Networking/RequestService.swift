@@ -177,26 +177,30 @@ open class RequestService {
 
     private func handleResult<Response: Decodable, E: Endpoint>(_ result: Result<Response, Error>,
                                                                 endpoint: E,
-                                                                success: Success<Response>,
-                                                                failure: Failure?) {
-        switch result {
-        case let .success(response):
-            success(response)
-        case var .failure(error):
-            handle(&error, for: endpoint)
-            failure?(error)
+                                                                success: @escaping (Success<Response>),
+                                                                failure: @escaping Failure?) {
+        DispatchQueue.main.async {
+            switch result {
+            case let .success(response):
+                success(response)
+            case var .failure(error):
+                handle(&error, for: endpoint)
+                failure?(error)
+            }
         }
     }
 
     private func handleResult<Response: Decodable, E: Endpoint>(_ result: Result<Response, Error>,
                                                                 endpoint: E,
-                                                                completion: ResultCompletion<Response>) {
-        switch result {
-        case let .success(response):
-            completion(.success(response))
-        case var .failure(error):
-            handle(&error, for: endpoint)
-            completion(.failure(error))
+                                                                completion: @escaping (ResultCompletion<Response>)) {
+        DispatchQueue.main.async {
+            switch result {
+            case let .success(response):
+                completion(.success(response))
+            case var .failure(error):
+                handle(&error, for: endpoint)
+                completion(.failure(error))
+            }
         }
     }
 
