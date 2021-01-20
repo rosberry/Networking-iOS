@@ -3,7 +3,6 @@
 //
 
 extension Error {
-
     public var responseCode: Int? {
         guard let networkingError = self as? NetworkingError,
             case let NetworkingError.responseValidationFailed(responseCode) = networkingError else {
