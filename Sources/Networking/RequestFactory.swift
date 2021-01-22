@@ -83,3 +83,11 @@ open class RequestFactory {
         return data as Data
     }
 }
+
+    mutating func appendString(_ string: String) {
+        guard let data = string.data(using: .utf8) else {
+            return
+        }
+        append(data)
+    }
+}
