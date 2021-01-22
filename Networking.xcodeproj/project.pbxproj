@@ -38,12 +38,12 @@
 		85AF056F25B18EBA007C98A7 /* URLProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AF056225B18EBA007C98A7 /* URLProtocolMock.swift */; };
 		85AF057025B18EBA007C98A7 /* HeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AF056325B18EBA007C98A7 /* HeaderTests.swift */; };
 		85AF057125B18EBA007C98A7 /* SessionTaskServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AF056425B18EBA007C98A7 /* SessionTaskServiceTests.swift */; };
-		A9152CEE25B84B9000B1E2A2 /* MultipartFormInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CED25B84B9000B1E2A2 /* MultipartFormInformationService.swift */; };
-		A9152CF325B84BA000B1E2A2 /* MultipartFormInformationServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CF225B84BA000B1E2A2 /* MultipartFormInformationServiceImp.swift */; };
-		A9152CF825B84BB200B1E2A2 /* MultipartFormInformationEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CF725B84BB200B1E2A2 /* MultipartFormInformationEndPoint.swift */; };
+		A9152CEE25B84B9000B1E2A2 /* MultipartFormService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CED25B84B9000B1E2A2 /* MultipartFormService.swift */; };
+		A9152CF325B84BA000B1E2A2 /* MultipartFormServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CF225B84BA000B1E2A2 /* MultipartFormServiceImp.swift */; };
+		A9152CF825B84BB200B1E2A2 /* MultipartFormEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CF725B84BB200B1E2A2 /* MultipartFormEndPoint.swift */; };
 		A99040E825B98D5600123D92 /* MultipartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99040E725B98D5600123D92 /* MultipartViewController.swift */; };
 		A99040FA25B99DCD00123D92 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99040F925B99DCD00123D92 /* User.swift */; };
-		A9DCBBE225B97B1E000B4476 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CE725B84A0700B1E2A2 /* MultipartFormData.swift */; };
+		A9DCBBE225B97B1E000B4476 /* MultipartFormInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CE725B84A0700B1E2A2 /* MultipartFormInformation.swift */; };
 		C6F20EB4EB74EFC35F5756BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB4F684908AECECBBAD0257 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,10 +80,10 @@
 		85AF056425B18EBA007C98A7 /* SessionTaskServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTaskServiceTests.swift; sourceTree = "<group>"; };
 		8E73AEAD38586BC4D608D71A /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB4F684908AECECBBAD0257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A9152CE725B84A0700B1E2A2 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
-		A9152CED25B84B9000B1E2A2 /* MultipartFormInformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormInformationService.swift; sourceTree = "<group>"; };
-		A9152CF225B84BA000B1E2A2 /* MultipartFormInformationServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormInformationServiceImp.swift; sourceTree = "<group>"; };
-		A9152CF725B84BB200B1E2A2 /* MultipartFormInformationEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormInformationEndPoint.swift; sourceTree = "<group>"; };
+		A9152CE725B84A0700B1E2A2 /* MultipartFormInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormInformation.swift; sourceTree = "<group>"; };
+		A9152CED25B84B9000B1E2A2 /* MultipartFormService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormService.swift; sourceTree = "<group>"; };
+		A9152CF225B84BA000B1E2A2 /* MultipartFormServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormServiceImp.swift; sourceTree = "<group>"; };
+		A9152CF725B84BB200B1E2A2 /* MultipartFormEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormEndPoint.swift; sourceTree = "<group>"; };
 		A99040DF25B98A6700123D92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A99040E325B98B5400123D92 /* djamshytka.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = djamshytka.jpg; path = "/Users/evgenijsvarckopf/Networking-iOS/Sources/Example/djamshytka.jpg"; sourceTree = "<absolute>"; };
 		A99040E725B98D5600123D92 /* MultipartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		45DD0F4EEAFA800C5492FBDA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				A9152CE725B84A0700B1E2A2 /* MultipartFormData.swift */,
+				A9152CE725B84A0700B1E2A2 /* MultipartFormInformation.swift */,
 				85AF054125B18E99007C98A7 /* AnyEncodable.swift */,
 				85AF054725B18E99007C98A7 /* Endpoint.swift */,
 				85AF053D25B18E99007C98A7 /* Errors */,
@@ -140,7 +140,7 @@
 		851C311225B197FD0039A13F /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A9152CEC25B84B7700B1E2A2 /* MultipartFormInformationService */,
+				A9152CEC25B84B7700B1E2A2 /* MultipartFormService */,
 				851C311325B197FD0039A13F /* JokesService */,
 			);
 			path = Services;
@@ -198,14 +198,14 @@
 			);
 			sourceTree = "<group>";
 		};
-		A9152CEC25B84B7700B1E2A2 /* MultipartFormInformationService */ = {
+		A9152CEC25B84B7700B1E2A2 /* MultipartFormService */ = {
 			isa = PBXGroup;
 			children = (
-				A9152CED25B84B9000B1E2A2 /* MultipartFormInformationService.swift */,
-				A9152CF225B84BA000B1E2A2 /* MultipartFormInformationServiceImp.swift */,
-				A9152CF725B84BB200B1E2A2 /* MultipartFormInformationEndPoint.swift */,
+				A9152CED25B84B9000B1E2A2 /* MultipartFormService.swift */,
+				A9152CF225B84BA000B1E2A2 /* MultipartFormServiceImp.swift */,
+				A9152CF725B84BB200B1E2A2 /* MultipartFormEndPoint.swift */,
 			);
-			path = MultipartFormInformationService;
+			path = MultipartFormService;
 			sourceTree = "<group>";
 		};
 		AFBC324CB1CEBDA5706F4E34 /* Products */ = {
@@ -305,10 +305,10 @@
 				C6F20EB4EB74EFC35F5756BC /* AppDelegate.swift in Sources */,
 				851C311925B197FD0039A13F /* JokesEndpoint.swift in Sources */,
 				851C310B25B197410039A13F /* Joke.swift in Sources */,
-				A9152CF825B84BB200B1E2A2 /* MultipartFormInformationEndPoint.swift in Sources */,
+				A9152CF825B84BB200B1E2A2 /* MultipartFormEndPoint.swift in Sources */,
 				851C311725B197FD0039A13F /* JokesService.swift in Sources */,
-				A9152CF325B84BA000B1E2A2 /* MultipartFormInformationServiceImp.swift in Sources */,
-				A9152CEE25B84B9000B1E2A2 /* MultipartFormInformationService.swift in Sources */,
+				A9152CF325B84BA000B1E2A2 /* MultipartFormServiceImp.swift in Sources */,
+				A9152CEE25B84B9000B1E2A2 /* MultipartFormService.swift in Sources */,
 				851C311825B197FD0039A13F /* JokesServiceImp.swift in Sources */,
 				06506C7516406CDC8C5F2B0E /* ExampleViewController.swift in Sources */,
 				A99040E825B98D5600123D92 /* MultipartViewController.swift in Sources */,
@@ -348,7 +348,7 @@
 				85AF055225B18E99007C98A7 /* RequestService.swift in Sources */,
 				85AF054F25B18E99007C98A7 /* Parameters.swift in Sources */,
 				85AF054D25B18E99007C98A7 /* AnyEncodable.swift in Sources */,
-				A9DCBBE225B97B1E000B4476 /* MultipartFormData.swift in Sources */,
+				A9DCBBE225B97B1E000B4476 /* MultipartFormInformation.swift in Sources */,
 				85AF054B25B18E99007C98A7 /* Error+Networking.swift in Sources */,
 				85AF054C25B18E99007C98A7 /* GeneralErrorHandler.swift in Sources */,
 				85AF054E25B18E99007C98A7 /* Header.swift in Sources */,
