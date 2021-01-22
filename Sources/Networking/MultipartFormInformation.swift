@@ -5,10 +5,10 @@
 import Foundation
 
 public class MultipartFormInformation {
-    let data: Data
-    let contentType: String
+    public let data: Data
+    public let contentType: String
 
-    init(data: Data, contentType: String) {
+    public init(data: Data, contentType: String) {
         self.data = data
         self.contentType = contentType
     }
