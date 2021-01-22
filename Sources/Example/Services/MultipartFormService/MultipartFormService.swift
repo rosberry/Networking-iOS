@@ -6,7 +6,7 @@ import Networking
 import Foundation
 
 protocol HasMultipartFormService {
-    var multipartFormInformationService: MultipartFormService { get }
+    var multipartFormService: MultipartFormService { get }
 }
 
 protocol MultipartFormService: class {

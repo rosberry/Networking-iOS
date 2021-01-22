@@ -8,7 +8,7 @@ import Networking
 
 final class MultipartViewController: UIViewController {
 
-    private let multipartFormDataService: MultipartFormInformationService = MultipartFormInformationServiceImp.shared
+    private let multipartFormService: MultipartFormService = MultipartFormServiceImp.shared
 
     private lazy var requestButton: UIButton = {
         let button = UIButton()
@@ -57,7 +57,7 @@ final class MultipartViewController: UIViewController {
         }
 
         let multipartFormInformation = MultipartFormInformation(data: data, contentType: "jpg")
-        multipartFormDataService.request(multipartFormInformation) { multipartFormInformation in
+        multipartFormService.request(multipartFormInformation) { multipartFormInformation in
             do {
                 let user = try JSONSerialization.jsonObject(with: multipartFormInformation)
                 print(multipartFormInformation)
