@@ -31,12 +31,25 @@ final class ExampleViewController: UIViewController {
         view.hidesWhenStopped = true
         return view
     }()
+
+    private lazy var presentButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Saving Djamshytky?", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .white
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
+        button.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+        button.addTarget(self, action: #selector(presentButtonPressed), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(fetchJokeButton)
         view.addSubview(jokeLabel)
         view.addSubview(activityIndicatorView)
+        view.addSubview(presentButton)
         view.backgroundColor = .white
     }
     
@@ -48,8 +61,17 @@ final class ExampleViewController: UIViewController {
         jokeLabel.center = view.center
         jokeLabel.bounds = .init(origin: .zero, size: jokeLabel.sizeThatFits(view.bounds.size))
 
+        presentButton.sizeToFit()
+        presentButton.center = .init(x: view.center.x,
+                                     y: 100)
+
         activityIndicatorView.sizeToFit()
         activityIndicatorView.center = view.center
+    }
+
+    @objc private func presentButtonPressed() {
+        let multipartViewController = MultipartViewController()
+        present(multipartViewController, animated: true)
     }
 
     @objc private func fetchJokeButtonPressed() {
