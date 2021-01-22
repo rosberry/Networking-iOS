@@ -4,6 +4,7 @@
 
 import Foundation
 
+public class MultipartFormInformation {
     let data: Data
     let contentType: String
 
