@@ -61,4 +61,13 @@ open class RequestFactory {
         }
         return data
     }
+
+    private func convertFormField(named name: String, value: String, using boundary: String) -> String {
+        var fieldString = "--\(boundary)\r\n"
+        fieldString += "Content-Disposition: form-data; name=\"\(name)\"\r\n"
+        fieldString += "\r\n"
+        fieldString += "\(value)\r\n"
+
+        return fieldString
+    }
 }
