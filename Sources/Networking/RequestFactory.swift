@@ -70,4 +70,16 @@ open class RequestFactory {
 
         return fieldString
     }
+
+    private func convertFileData(fieldName: String, fileName: String, mimeType: String, fileData: Data, using boundary: String) -> Data {
+        var data = Data()
+
+        data.appendString("--\(boundary)\r\n")
+        data.appendString("Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(fileName)\"\r\n")
+        data.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        data.append(fileData)
+        data.appendString("\r\n")
+        
+        return data as Data
+    }
 }
