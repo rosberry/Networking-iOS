@@ -40,4 +40,25 @@ open class RequestFactory {
         }
         return request
     }
+    private func buildMultipartFormData(boundary: String, parameters: [String: Any]) -> Data? {
+        var data = Data()
+
+        for (key, value) in parameters {
+            if let stringValue = value as? String {
+                data.appendString(convertFormField(named: key, value: stringValue, using: boundary))
+            }
+            else {
+                if let multipartFormInformation = value as? MultipartFormInformation {
+                    let stringTimestamp = String(Date().timeIntervalSince1970)
+                    let formFileData = convertFileData(fieldName: key,
+                                                       fileName: stringTimestamp + "." + multipartFormInformation.contentType,
+                                                       mimeType: multipartFormInformation.contentType,
+                                                       fileData: multipartFormInformation.data,
+                                                       using: boundary)
+                    data.append(formFileData)
+                }
+            }
+        }
+        return data
+    }
 }
