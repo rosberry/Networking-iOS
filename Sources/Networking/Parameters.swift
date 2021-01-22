@@ -9,6 +9,7 @@ public enum Parameters {
     case json(Encodable)
     case url([String: CustomStringConvertible])
     case data(Data)
+    case multipartFormData([String: Any])
 
     var identifier: String {
         switch self {
