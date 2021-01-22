@@ -119,14 +119,12 @@ open class SessionTaskService {
 
     @discardableResult
     open func downloadTask(withResumeData resumeData: Data,
-                             success: @escaping Success<URL>,
-                             failure: Failure? = nil) -> URLSessionDownloadTask {
+                           success: @escaping Success<URL>,
+                           failure: Failure? = nil) -> URLSessionDownloadTask {
         downloadTask(withResumeData: resumeData) { result in
             switch result {
             case .success(let data):
-                DispatchQueue.main.async {
-                    success(data)
-                }
+                success(data)
             case .failure(let error):
                 failure?(error)
             }
@@ -139,17 +137,15 @@ open class SessionTaskService {
                                   error: Swift.Error?,
                                   urlResponse: URLResponse?,
                                   completion: @escaping (ResultCompletion<Response>)) {
-        DispatchQueue.main.async {
-            let error = error ?? self.error(from: urlResponse)
-            if let errors = error {
-                completion(.failure(errors))
-            }
-            else if let response = response {
-                completion(.success(response))
-            }
-            else {
-                completion(.failure(NetworkingError.noData))
-            }
+        let error = error ?? self.error(from: urlResponse)
+        if let errors = error {
+            completion(.failure(errors))
+        }
+        else if let response = response {
+            completion(.success(response))
+        }
+        else {
+            completion(.failure(NetworkingError.noData))
         }
     }
 
