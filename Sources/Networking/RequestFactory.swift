@@ -16,6 +16,13 @@ open class RequestFactory {
         let endpointURL = endpoint.baseURL.appendingPathComponent(endpoint.path)
         var components = URLComponents(url: endpointURL, resolvingAgainstBaseURL: false)
         var body: Data = .init()
+
+        guard let url = components?.url else {
+            throw NetworkingError.wrongURL
+        }
+
+        var request = URLRequest(url: url)
+
         for parameter in endpoint.parameters {
             switch parameter {
             case .json(let json):
@@ -27,19 +34,25 @@ open class RequestFactory {
                 }
             case .data(let data):
                 body.append(data)
+            case let .multipartFormData(values):
+                let boundary = UUID().uuidString
+                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+                if let data = buildMultipartFormData(boundary: boundary, parameters: values) {
+                    body = data
+                }
             }
         }
-        guard let url = components?.url else {
-            throw NetworkingError.wrongURL
-        }
-        var request = URLRequest(url: url)
+
         request.httpMethod = endpoint.method.rawValue
         request.httpBody = body
+
         for header in endpoint.headers {
             request.addValue(header.value, forHTTPHeaderField: header.key)
         }
+
         return request
     }
+
     private func buildMultipartFormData(boundary: String, parameters: [String: Any]) -> Data? {
         var data = Data()
 
@@ -84,6 +97,7 @@ open class RequestFactory {
     }
 }
 
+private extension Data {
     mutating func appendString(_ string: String) {
         guard let data = string.data(using: .utf8) else {
             return
