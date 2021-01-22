@@ -4,13 +4,14 @@
 
 import Networking
 import Foundation
+import UIKit
 
 protocol HasMultipartFormService {
     var multipartFormService: MultipartFormService { get }
 }
 
 protocol MultipartFormService: class {
-    func request(_ multipartFormInformation: MultipartFormInformation,
+    func upload(_ UIImage: UIImage,
                  success: @escaping Success<Data>,
                  failure: Failure?)
 }

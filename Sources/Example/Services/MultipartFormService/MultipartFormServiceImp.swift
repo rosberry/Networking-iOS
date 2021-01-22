@@ -7,13 +7,15 @@ import Networking
 import UIKit
 
 final class MultipartFormServiceImp: RequestService, MultipartFormService {
-
-    static let shared: MultipartFormServiceImp = .init()
-
-    func request(_ multipartFormInformation: MultipartFormInformation,
-                 success: @escaping Success<Data>,
-                 failure: Failure?) {
-        request(MultipartFormEndpoint.uploadImage(multipartFormInformation)) { data in
+    
+    func upload(_ image: UIImage,
+                success: @escaping Success<Data>,
+                failure: Failure?) {
+        guard let data = image.jpegData(compressionQuality: 0.7) else {
+            return
+        }
+        let multipartFormDataWrapper = MultipartFormDataWrapper(data: data, contentType: "jpg")
+        request(MultipartFormEndpoint.upload(multipartFormDataWrapper)) { data in
             switch data {
             case let .success(data):
                 success(data)

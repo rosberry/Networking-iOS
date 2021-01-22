@@ -6,7 +6,7 @@ import Foundation
 import Networking
 
 enum MultipartFormEndpoint {
-    case uploadImage(_ multipartFormInformation: MultipartFormInformation)
+    case upload(_ multipartFormDataWrapper: MultipartFormDataWrapper)
 }
 
 extension MultipartFormEndpoint: Endpoint {
@@ -25,18 +25,18 @@ extension MultipartFormEndpoint: Endpoint {
     
     var method: Networking.Method {
         switch self {
-        case .uploadImage:
+        case .upload:
             return .post
         }
     }
     
     var parameters: Set<Parameters> {
         switch self {
-        case .uploadImage(let multipartFormInformation):
+        case .upload(let multipartFormDataWrapper):
             var params: [String: Any] = [:]
             params["name"] = "Djamshyt"
             params["lastName"] = "Djamshytovich"
-            params["image"] = multipartFormInformation
+            params["image"] = multipartFormDataWrapper
             params["likes"] = 23
             return [.multipartFormData(params)]
         }

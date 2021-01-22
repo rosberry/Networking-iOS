@@ -8,7 +8,7 @@ import Networking
 
 final class MultipartViewController: UIViewController {
 
-    private let multipartFormService: MultipartFormService = MultipartFormServiceImp.shared
+    private let multipartFormService: MultipartFormService = MultipartFormServiceImp()
 
     private lazy var requestButton: UIButton = {
         let button = UIButton()
@@ -24,7 +24,7 @@ final class MultipartViewController: UIViewController {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(contentsOfFile: "/Users/evgenijsvarckopf/Networking-iOS/Sources/Example/djamshytka.jpg")
+        imageView.image = UIImage(named: "djamshytka")
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
@@ -50,17 +50,13 @@ final class MultipartViewController: UIViewController {
     }
 
     @objc private func requestButtonPressed() {
-        let imageData = imageView.image?.jpegData(compressionQuality: 0.7)
-
-        guard let data = imageData else {
+        guard let image = imageView.image else {
             return
         }
 
-        let multipartFormInformation = MultipartFormInformation(data: data, contentType: "jpg")
-        multipartFormService.request(multipartFormInformation) { multipartFormInformation in
+        multipartFormService.upload(image) { data in
             do {
-                let user = try JSONSerialization.jsonObject(with: multipartFormInformation)
-                print(multipartFormInformation)
+                let user = try JSONSerialization.jsonObject(with: data)
                 print(user)
             }
             catch let error {

@@ -37,9 +37,7 @@ open class RequestFactory {
             case let .multipartFormData(values):
                 let boundary = UUID().uuidString
                 request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-                if let data = buildMultipartFormData(boundary: boundary, parameters: values) {
-                    body = data
-                }
+                body = buildMultipartFormData(boundary: boundary, parameters: values)
             }
         }
 
@@ -53,15 +51,17 @@ open class RequestFactory {
         return request
     }
 
-    private func buildMultipartFormData(boundary: String, parameters: [String: Any]) -> Data? {
+    private func buildMultipartFormData(boundary: String, parameters: [String: Any]) -> Data {
         var data = Data()
 
         for (key, value) in parameters {
-            if let stringValue = value as? String {
-                data.appendString(convertFormField(named: key, value: stringValue, using: boundary))
+            if let stringConvertibleValue = value as? CustomStringConvertible {
+                data.appendString(convertFormField(named: key,
+                                                   value: stringConvertibleValue.description,
+                                                   using: boundary))
             }
             else {
-                if let multipartFormInformation = value as? MultipartFormInformation {
+                if let multipartFormInformation = value as? MultipartFormDataWrapper {
                     let stringTimestamp = String(Date().timeIntervalSince1970)
                     let formFileData = convertFileData(fieldName: key,
                                                        fileName: stringTimestamp + "." + multipartFormInformation.contentType,
