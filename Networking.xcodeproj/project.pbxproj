@@ -85,7 +85,7 @@
 		A9152CF225B84BA000B1E2A2 /* MultipartFormServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormServiceImp.swift; sourceTree = "<group>"; };
 		A9152CF725B84BB200B1E2A2 /* MultipartFormEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormEndPoint.swift; sourceTree = "<group>"; };
 		A99040DF25B98A6700123D92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A99040E325B98B5400123D92 /* djamshytka.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = djamshytka.jpg; path = "/Users/evgenijsvarckopf/Networking-iOS/Sources/Example/djamshytka.jpg"; sourceTree = "<absolute>"; };
+		A99040E325B98B5400123D92 /* djamshytka.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = djamshytka.jpg; sourceTree = "<group>"; };
 		A99040E725B98D5600123D92 /* MultipartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartViewController.swift; sourceTree = "<group>"; };
 		A99040F925B99DCD00123D92 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C28CA6C82EF4E4680A851764 /* NetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
