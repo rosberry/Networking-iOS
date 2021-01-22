@@ -94,7 +94,6 @@ final class ExampleViewController: UIViewController {
                     self?.jokeLabel.text = error.localizedDescription
                     self?.jokeLabel.isHidden = false
                     self?.activityIndicatorView.stopAnimating()
-
                 }
             }
         }
