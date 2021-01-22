@@ -12,12 +12,14 @@ public enum Parameters {
 
     var identifier: String {
         switch self {
-            case .json:
-                return "json"
-            case .url:
-                return "url"
-            case .data:
-                return "data"
+        case .json:
+            return "json"
+        case .url:
+            return "url"
+        case .data:
+            return "data"
+        case .multipartFormData:
+            return "multipartFormData"
         }
     }
 }
@@ -26,19 +28,21 @@ extension Parameters: Equatable {
 
     public static func == (lhs: Parameters, rhs: Parameters) -> Bool {
         switch (lhs, rhs) {
-            case let (.data(lhsData), .data(rhsData)):
-                return lhsData == rhsData
-            case let (.url(lhsParams), .url(rhsParams)):
-                return NSDictionary(dictionary: lhsParams).isEqual(to: rhsParams)
-            case let (.json(lhsEncodable), .json(rhsEncodable)):
-                let encoder = JSONEncoder()
-                guard let lhsData = try? encoder.encode(AnyEncodable(value: lhsEncodable)),
-                    let rhsData = try? encoder.encode(AnyEncodable(value: rhsEncodable)) else {
-                    return false
-                }
-                return lhsData == rhsData
-            default:
+        case let (.data(lhsData), .data(rhsData)):
+            return lhsData == rhsData
+        case let (.url(lhsParams), .url(rhsParams)):
+            return NSDictionary(dictionary: lhsParams).isEqual(to: rhsParams)
+        case let (.multipartFormData(lhsParams), .multipartFormData(rhsParams)):
+            return NSDictionary(dictionary: lhsParams).isEqual(to: rhsParams)
+        case let (.json(lhsEncodable), .json(rhsEncodable)):
+            let encoder = JSONEncoder()
+            guard let lhsData = try? encoder.encode(AnyEncodable(value: lhsEncodable)),
+                  let rhsData = try? encoder.encode(AnyEncodable(value: rhsEncodable)) else {
                 return false
+            }
+            return lhsData == rhsData
+        default:
+            return false
         }
     }
 }
