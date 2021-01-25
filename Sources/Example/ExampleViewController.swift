@@ -78,23 +78,24 @@ final class ExampleViewController: UIViewController {
         jokeLabel.isHidden = true
         activityIndicatorView.startAnimating()
         jokesService.loadRandomJoke(category: "IT") { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case let .success(joke):
-                    self?.jokeLabel.text = "\(joke.setup) - \(joke.punchline)"
-                    self?.view.setNeedsLayout()
-                    self?.view.layoutIfNeeded()
-                    self?.jokeLabel.isHidden = false
-                    self?.activityIndicatorView.stopAnimating()
-                case let .failure(error):
-                    guard (error as? GeneralRequestError) != GeneralRequestError.cancelled else {
-                        return
-                    }
-                    print(error.localizedDescription)
-                    self?.jokeLabel.text = error.localizedDescription
-                    self?.jokeLabel.isHidden = false
-                    self?.activityIndicatorView.stopAnimating()
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case let .success(joke):
+                self.jokeLabel.text = "\(joke.setup) - \(joke.punchline)"
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+                self.jokeLabel.isHidden = false
+                self.activityIndicatorView.stopAnimating()
+            case let .failure(error):
+                guard (error as? GeneralRequestError) != GeneralRequestError.cancelled else {
+                    return
                 }
+                print(error.localizedDescription)
+                self.jokeLabel.text = error.localizedDescription
+                self.jokeLabel.isHidden = false
+                self.activityIndicatorView.stopAnimating()
             }
         }
     }

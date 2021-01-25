@@ -119,8 +119,8 @@ open class SessionTaskService {
 
     @discardableResult
     open func downloadTask(withResumeData resumeData: Data,
-                             success: @escaping Success<URL>,
-                             failure: Failure? = nil) -> URLSessionDownloadTask {
+                           success: @escaping Success<URL>,
+                           failure: Failure? = nil) -> URLSessionDownloadTask {
         downloadTask(withResumeData: resumeData) { result in
             switch result {
             case .success(let data):
@@ -136,10 +136,10 @@ open class SessionTaskService {
     private func handle<Response>(_ response: Response?,
                                   error: Swift.Error?,
                                   urlResponse: URLResponse?,
-                                  completion: ResultCompletion<Response>) {
+                                  completion: @escaping (ResultCompletion<Response>)) {
         let error = error ?? self.error(from: urlResponse)
-        if let error = error {
-            completion(.failure(error))
+        if let errors = error {
+            completion(.failure(errors))
         }
         else if let response = response {
             completion(.success(response))
