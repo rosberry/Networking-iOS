@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01BC34B125BE904B0097A9D8 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB94AB396956A091A12E05B /* Networking.framework */; };
 		06506C7516406CDC8C5F2B0E /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBAD1022A4A57721AC7A1FC /* ExampleViewController.swift */; };
 		4215FD8B0A8DDF9B03F99C83 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659A2544A3D981DEC47E7AC /* XCTestManifests.swift */; };
 		851C310B25B197410039A13F /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851C310925B197410039A13F /* Joke.swift */; };
@@ -94,7 +95,25 @@
 		FEBAD1022A4A57721AC7A1FC /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		01BC34AF25BE90410097A9D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01BC34B125BE904B0097A9D8 /* Networking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		01BC34B025BE904B0097A9D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		45DD0F4EEAFA800C5492FBDA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +215,7 @@
 				45DD0F4EEAFA800C5492FBDA /* Networking */,
 				9143A33926D9590898DE11D6 /* NetworkingTests */,
 				AFBC324CB1CEBDA5706F4E34 /* Products */,
+				01BC34B025BE904B0097A9D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -257,6 +277,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D42AFAAC0E68825F168579BE /* Build configuration list for PBXNativeTarget "NetworkingTests" */;
 			buildPhases = (
+				01BC34AF25BE90410097A9D8 /* Frameworks */,
 				C84E7A3CEEB753A084B0B760 /* Sources */,
 			);
 			buildRules = (
