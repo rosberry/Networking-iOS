@@ -11,7 +11,7 @@ protocol HasMultipartFormService {
 }
 
 protocol MultipartFormService: class {
-    func upload(_ UIImage: UIImage,
-                 success: @escaping Success<Data>,
-                 failure: Failure?)
+    func upload(_ image: UIImage,
+                success: @escaping Success<Data>,
+                failure: Failure?)
 }

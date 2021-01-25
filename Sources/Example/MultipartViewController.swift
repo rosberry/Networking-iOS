@@ -56,8 +56,8 @@ final class MultipartViewController: UIViewController {
 
         multipartFormService.upload(image) { data in
             do {
-                let user = try JSONSerialization.jsonObject(with: data)
-                print(user)
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
             }
             catch let error {
                 print(error.localizedDescription.debugDescription)
