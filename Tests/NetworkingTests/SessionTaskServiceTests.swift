@@ -57,7 +57,7 @@ final class SessionTaskServiceTests: ResultTests {
 
     func testDataTaskResultCompletionReturnsError() {
         //Given
-        let expectError = NetworkingError.wrongURL
+        let expectError = NSError(domain: "Test", code: 123, userInfo: nil)
         URLProtocolMock.mocks = [URLMock(url: request.url, error: expectError)]
         //When
         let expectation = self.expectation(description: "error")
@@ -89,7 +89,7 @@ final class SessionTaskServiceTests: ResultTests {
 
     func testDataTaskFailureCompletionReturnsError() {
         //Given
-        let expectError = NetworkingError.wrongURL
+        let expectError = NSError(domain: "Test", code: 123, userInfo: nil)
         URLProtocolMock.mocks = [URLMock(url: request.url, error: expectError)]
         //When
         let expectation = self.expectation(description: "error")
