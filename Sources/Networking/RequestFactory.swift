@@ -32,6 +32,7 @@ open class RequestFactory {
                 components?.queryItems = values.map { key, value in
                     URLQueryItem(name: key, value: value.description)
                 }
+                request.url = components?.url
             case .data(let data):
                 body.append(data)
             case let .multipartFormData(values):
