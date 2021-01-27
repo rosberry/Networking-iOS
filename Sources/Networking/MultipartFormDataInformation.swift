@@ -4,7 +4,7 @@
 
 import Foundation
 
-public class MultipartFormDataWrapper {
+public class MultipartFormDataInformation {
     public let data: Data
     public let contentType: String
 

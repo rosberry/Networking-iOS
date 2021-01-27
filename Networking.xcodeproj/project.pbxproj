@@ -45,7 +45,7 @@
 		A93EC4BC25BADC4900273686 /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93EC4AB25BAD9A200273686 /* Asset.xcassets */; };
 		A99040E825B98D5600123D92 /* MultipartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99040E725B98D5600123D92 /* MultipartViewController.swift */; };
 		A99040FA25B99DCD00123D92 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99040F925B99DCD00123D92 /* User.swift */; };
-		A9DCBBE225B97B1E000B4476 /* MultipartFormDataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CE725B84A0700B1E2A2 /* MultipartFormDataWrapper.swift */; };
+		A9DCBBE225B97B1E000B4476 /* MultipartFormDataInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9152CE725B84A0700B1E2A2 /* MultipartFormDataInformation.swift */; };
 		C6F20EB4EB74EFC35F5756BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB4F684908AECECBBAD0257 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +82,7 @@
 		85AF056425B18EBA007C98A7 /* SessionTaskServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTaskServiceTests.swift; sourceTree = "<group>"; };
 		8E73AEAD38586BC4D608D71A /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB4F684908AECECBBAD0257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A9152CE725B84A0700B1E2A2 /* MultipartFormDataWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataWrapper.swift; sourceTree = "<group>"; };
+		A9152CE725B84A0700B1E2A2 /* MultipartFormDataInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataInformation.swift; sourceTree = "<group>"; };
 		A9152CED25B84B9000B1E2A2 /* MultipartFormService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormService.swift; sourceTree = "<group>"; };
 		A9152CF225B84BA000B1E2A2 /* MultipartFormServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormServiceImp.swift; sourceTree = "<group>"; };
 		A9152CF725B84BB200B1E2A2 /* MultipartFormEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormEndpoint.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		45DD0F4EEAFA800C5492FBDA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				A9152CE725B84A0700B1E2A2 /* MultipartFormDataWrapper.swift */,
+				A9152CE725B84A0700B1E2A2 /* MultipartFormDataInformation.swift */,
 				85AF054125B18E99007C98A7 /* AnyEncodable.swift */,
 				85AF054725B18E99007C98A7 /* Endpoint.swift */,
 				85AF053D25B18E99007C98A7 /* Errors */,
@@ -382,7 +382,7 @@
 				85AF055225B18E99007C98A7 /* RequestService.swift in Sources */,
 				85AF054F25B18E99007C98A7 /* Parameters.swift in Sources */,
 				85AF054D25B18E99007C98A7 /* AnyEncodable.swift in Sources */,
-				A9DCBBE225B97B1E000B4476 /* MultipartFormDataWrapper.swift in Sources */,
+				A9DCBBE225B97B1E000B4476 /* MultipartFormDataInformation.swift in Sources */,
 				85AF054B25B18E99007C98A7 /* Error+Networking.swift in Sources */,
 				85AF054C25B18E99007C98A7 /* GeneralErrorHandler.swift in Sources */,
 				85AF054E25B18E99007C98A7 /* Header.swift in Sources */,

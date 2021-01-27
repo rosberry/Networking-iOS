@@ -61,7 +61,7 @@ open class RequestFactory {
                                                    using: boundary))
             }
             else {
-                if let multipartFormInformation = value as? MultipartFormDataWrapper {
+                if let multipartFormInformation = value as? MultipartFormDataInformation {
                     let stringTimestamp = String(Date().timeIntervalSince1970)
                     let formFileData = convertFileData(fieldName: key,
                                                        fileName: stringTimestamp + "." + multipartFormInformation.contentType,
