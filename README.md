@@ -21,12 +21,47 @@
 
 ## Installation
 
+### Depo
+
+[Depo](https://github.com/rosberry/depo) is a universal dependency manager that combines Carthage, SPM and CocoaPods and provides common user interface to all of them.
+
+To install `Networking` via Carthage using Depo you need to add this to your `Depofile`:
+```yaml
+carts:
+  - kind: github
+    identifier: rosberry/Networking-iOS
+```
+
+<details>
+  <summary>To install Networking via SPM or CocoaPods</summary>
+
+  #### Via SPM
+  Add this to your Depofile:
+
+  ```yaml
+  swiftPackages:
+    - name: Networking-iOS
+      url: https://github.com/rosberry/Networking-iOS.git
+      version:
+        operation: upToNextMajor
+        value: 1.0.0
+  ```
+  
+  #### Via CocoaPods
+  Add this to your Depofile:
+  
+  ```yaml
+  pods:
+    - name: Networking
+  ```
+</details>
+
 ### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate Networking into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "rosberry/Networking"
+github "rosberry/Networking-iOS"
 ```
 
 ### CocoaPods
@@ -43,7 +78,7 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a tool for au
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/rosberry/Networking.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/rosberry/Networking-iOS.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
