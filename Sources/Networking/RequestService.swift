@@ -184,9 +184,10 @@ open class RequestService {
 
     private func handleResult<Response: Decodable, E: Endpoint>(_ result: Result<Response, Error>,
                                                                 endpoint: E,
+                                                                dispatchQueue: DispatchQueue,
                                                                 success: @escaping (Success<Response>),
                                                                 failure: Failure?) {
-        DispatchQueue.main.async {
+        dispatchQueue.async {
             switch result {
             case let .success(response):
                 success(response)
@@ -199,8 +200,9 @@ open class RequestService {
 
     private func handleResult<Response: Decodable, E: Endpoint>(_ result: Result<Response, Error>,
                                                                 endpoint: E,
+                                                                dispatchQueue: DispatchQueue,
                                                                 completion: @escaping (ResultCompletion<Response>)) {
-        DispatchQueue.main.async {
+        dispatchQueue.async {
             switch result {
             case let .success(response):
                 completion(.success(response))
