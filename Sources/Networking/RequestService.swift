@@ -48,10 +48,11 @@ open class RequestService {
 
     @discardableResult
     public func request<Response: Decodable, E: Endpoint>(_ endpoint: E,
+                                                          dispatchQueue: DispatchQueue,
                                                           completion: @escaping ResultCompletion<Response>) -> URLSessionDataTask? {
         request(endpoint) { [weak self, unowned decoder] result in
             let decodeResult: Result<Response, Error> = decoder.decodeResult(result)
-            self?.handleResult(decodeResult, endpoint: endpoint, success: { response in
+            self?.handleResult(decodeResult, endpoint: endpoint, dispatchQueue: dispatchQueue, success: { response in
                 completion(.success(response))
             }, failure: { error in
                 completion(.failure(error))
@@ -61,20 +62,22 @@ open class RequestService {
 
     @discardableResult
     public func request<Response: Decodable, E: Endpoint>(_ endpoint: E,
+                                                          dispatchQueue: DispatchQueue,
                                                           success: @escaping Success<Response>,
                                                           failure: Failure? = nil) -> URLSessionDataTask? {
-        request(endpoint) { [weak self] (result: Result<Response, Error>) in
-            self?.handleResult(result, endpoint: endpoint, success: success, failure: failure)
+        request(endpoint, dispatchQueue: dispatchQueue) { [weak self] (result: Result<Response, Error>) in
+            self?.handleResult(result, endpoint: endpoint, dispatchQueue: dispatchQueue, success: success, failure: failure)
         }
     }
 
     @discardableResult
     public func uploadRequest<Response: Decodable, E: Endpoint>(_ endpoint: E,
                                                                 task: UploadTask,
+                                                                dispatchQueue: DispatchQueue,
                                                                 completion: @escaping ResultCompletion<Response>) -> URLSessionUploadTask? {
         uploadRequest(endpoint, task: task) { [weak self, unowned decoder] result in
             let decodeResult: Result<Response, Error> = decoder.decodeResult(result)
-            self?.handleResult(decodeResult, endpoint: endpoint, success: { response in
+            self?.handleResult(decodeResult, endpoint: endpoint, dispatchQueue: dispatchQueue, success: { response in
                 completion(.success(response))
             }, failure: { error in
                 completion(.failure(error))
@@ -85,10 +88,11 @@ open class RequestService {
     @discardableResult
     public func uploadRequest<Response: Decodable, E: Endpoint>(_ endpoint: E,
                                                                 task: UploadTask,
+                                                                dispatchQueue: DispatchQueue,
                                                                 success: @escaping Success<Response>,
                                                                 failure: Failure? = nil) -> URLSessionUploadTask? {
-        uploadRequest(endpoint, task: task) { [weak self] (result: Result<Response, Error>) in
-            self?.handleResult(result, endpoint: endpoint, success: success, failure: failure)
+        uploadRequest(endpoint, task: task, dispatchQueue: dispatchQueue) { [weak self] (result: Result<Response, Error>) in
+            self?.handleResult(result, endpoint: endpoint, dispatchQueue: dispatchQueue, success: success, failure: failure)
         }
     }
 
@@ -111,10 +115,11 @@ open class RequestService {
 
     @discardableResult
     public func request<E: Endpoint>(_ endpoint: E,
+                                     dispatchQueue: DispatchQueue,
                                      success: @escaping Success<Data>,
                                      failure: Failure? = nil) -> URLSessionDataTask? {
         request(endpoint) { [weak self] result in
-            self?.handleResult(result, endpoint: endpoint, success: success, failure: failure)
+            self?.handleResult(result, endpoint: endpoint, dispatchQueue: dispatchQueue, success: success, failure: failure)
         }
     }
 
@@ -144,10 +149,11 @@ open class RequestService {
     @discardableResult
     public func uploadRequest<E: Endpoint>(_ endpoint: E,
                                            task: UploadTask,
+                                           dispatchQueue: DispatchQueue,
                                            success: @escaping Success<Data>,
                                            failure: Failure? = nil) -> URLSessionDataTask? {
         uploadRequest(endpoint, task: task) { [weak self] result in
-            self?.handleResult(result, endpoint: endpoint, success: success, failure: failure)
+            self?.handleResult(result, endpoint: endpoint, dispatchQueue: dispatchQueue, success: success, failure: failure)
         }
     }
 
@@ -168,10 +174,11 @@ open class RequestService {
 
     @discardableResult
     public func downloadRequest<E: Endpoint>(_ endpoint: E,
+                                             dispatchQueue: DispatchQueue,
                                              success: @escaping Success<URL>,
                                              failure: Failure? = nil) -> URLSessionDownloadTask? {
         downloadRequest(endpoint) { [weak self] result in
-            self?.handleResult(result, endpoint: endpoint, success: success, failure: failure)
+            self?.handleResult(result, endpoint: endpoint, dispatchQueue: dispatchQueue, success: success, failure: failure)
         }
     }
 
