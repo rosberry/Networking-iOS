@@ -8,6 +8,8 @@ import Networking
 
 final class RequestServiceTests: ResultTests {
 
+    private let timeout: Double = 15.0
+
     private lazy var taskServiceMock: SessionTaskServiceMock = .init()
     private lazy var requestFactoryMock: RequestFactoryMock = .init()
     private lazy var jsonDecoderMock: JSONDecoderMock = .init()
@@ -66,7 +68,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 15.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestResultCompletionReturnsError() {
@@ -82,7 +84,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestResultCompletionReturnsRequestFactoryError() {
@@ -97,7 +99,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestSuccessCompletionReturnsData() {
@@ -112,7 +114,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestFailureCompletionReturnsError() {
@@ -128,7 +130,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 15.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Decodable upload requests
@@ -146,7 +148,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableUploadRequestResultCompletionReturnsError() {
@@ -163,7 +165,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableUploadRequestSuccessCompletionReturnsData() {
@@ -179,7 +181,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 15.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableUploadRequestSuccessCompletionReturnsError() {
@@ -196,7 +198,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Data requests
@@ -213,7 +215,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestResultCompletionReturnsError() {
@@ -228,7 +230,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestResultCompletionReturnsRequestFactoryError() {
@@ -244,7 +246,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestSuccessCompletionReturnsData() {
@@ -259,7 +261,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestFailureCompletionReturnsError() {
@@ -276,7 +278,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Upload requests
@@ -314,7 +316,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestResultCompletionReturnsError() {
@@ -330,7 +332,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestResultCompletionReturnsRequestFactoryError() {
@@ -347,7 +349,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestSuccessCompletionReturnsData() {
@@ -363,7 +365,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task as? URLSessionUploadTask)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestFailureCompletionReturnsError() {
@@ -381,7 +383,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task as? URLSessionUploadTask)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestFailureCompletionReturnsRequestFactoryError() {
@@ -400,7 +402,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Download requests
@@ -417,7 +419,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestResultCompletionReturnsError() {
@@ -432,7 +434,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestResultCompletionReturnsRequestFactoryError() {
@@ -447,7 +449,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestSuccessCompletionReturnsData() {
@@ -462,7 +464,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestFailureCompletionReturnsError() {
@@ -479,7 +481,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestFailureCompletionReturnsRequestFactoryError() {
@@ -496,7 +498,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Private
