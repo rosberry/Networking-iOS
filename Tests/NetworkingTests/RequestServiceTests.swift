@@ -66,7 +66,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 15.0)
     }
 
     func testDecodableRequestResultCompletionReturnsError() {
@@ -128,7 +128,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 15.0)
     }
 
     // MARK: - Decodable upload requests
@@ -179,7 +179,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 15.0)
     }
 
     func testDecodableUploadRequestSuccessCompletionReturnsError() {
