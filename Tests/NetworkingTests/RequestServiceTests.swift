@@ -60,7 +60,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.request(DefaultEndpoint.test, dispatchQueue: .main) { (result: Result<Human, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .background)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.human)
             expectation.fulfill()
         }
@@ -76,7 +76,7 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test, dispatchQueue: .main) { (result: Result<Human, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .unspecified)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         }
@@ -91,7 +91,7 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test, dispatchQueue: .main) { (result: Result<Human, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global()) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.requestFactoryMock.error)
             expectation.fulfill()
         }
@@ -106,7 +106,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.request(DefaultEndpoint.test, dispatchQueue: .main, success: { (responseHuman: Human) in
+        let task = service.request(DefaultEndpoint.test, queue: .main, success: { (responseHuman: Human) in
             self.test(responseHuman, with: self.human)
             expectation.fulfill()
         })
@@ -122,7 +122,7 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test, dispatchQueue: .main, success: { (_: Human) in }, failure: { error in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .background), success: { (_: Human) in }, failure: { error in
             self.testError(error, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         })
@@ -140,7 +140,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), dispatchQueue: .main) { (result: Result<Human, Error>) in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .unspecified)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.human)
             expectation.fulfill()
         }
@@ -157,7 +157,7 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), dispatchQueue: .main) { (result: Result<Human, Error>) in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .background)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         }
@@ -173,7 +173,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), dispatchQueue: .main, success: { (responseHuman: Human) in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .background), success: { (responseHuman: Human) in
             self.test(responseHuman, with: self.human)
             expectation.fulfill()
         })
@@ -190,7 +190,7 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), dispatchQueue: .main, success: { (_: Human) in }, failure: { error in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .userInitiated), success: { (_: Human) in }, failure: { error in
             self.testError(error, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         })
@@ -222,7 +222,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test) { result in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .unspecified)) { (result:Result<Human, Error>) in
             self.testResult(result, with: self.taskServiceMock.error)
             expectation.fulfill()
         }
@@ -238,7 +238,7 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test) { (result: Result<Data, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .userInteractive)) { (result: Result<Data, Error>) in
             self.testResult(result, with: self.requestFactoryMock.error)
             expectation.fulfill()
         }
@@ -253,7 +253,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = Data()
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.request(DefaultEndpoint.test, dispatchQueue: .main, success: { data in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .utility), success: { data in
             self.test(data, with: self.taskServiceMock.responseData)
             expectation.fulfill()
         })
@@ -268,7 +268,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test, dispatchQueue: .main, success: { _ in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .background), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.taskServiceMock.error)
@@ -357,7 +357,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = Data()
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), dispatchQueue: .main, success: { data in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), queue: .global(qos: .default), success: { data in
             self.test(data, with: self.taskServiceMock.responseData)
             expectation.fulfill()
         })
@@ -373,7 +373,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), dispatchQueue: .main, success: { _ in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), queue: .global(), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.taskServiceMock.error)
@@ -392,7 +392,7 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), dispatchQueue: .main, success: { _ in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), queue: .global(qos: .background), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.requestFactoryMock.error)
@@ -456,7 +456,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseURL = URL(fileURLWithPath: "")
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.downloadRequest(DefaultEndpoint.test, dispatchQueue: .main, success: { url in
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .global(qos: .userInteractive), success: { url in
             self.test(url, with: self.taskServiceMock.responseURL)
             expectation.fulfill()
         })
@@ -471,7 +471,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.downloadRequest(DefaultEndpoint.test, dispatchQueue: .main, success: { _ in
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .global(qos: .utility), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.taskServiceMock.error)
@@ -488,7 +488,7 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.downloadRequest(DefaultEndpoint.test,dispatchQueue: .main, success: { _ in
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .global(qos: .userInitiated), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.requestFactoryMock.error)
