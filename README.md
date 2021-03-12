@@ -84,7 +84,57 @@ dependencies: [
 
 ## Documentation
 
-Read the [docs](https://rosberry.github.io/Networking). Generated with [jazzy](https://github.com/realm/jazzy). Hosted by [GitHub Pages](https://pages.github.com).
+Lightweight framework for working with network layer based on `URLSession`.
+
+Features:
+- making requests with `Endpoint`
+- error handling proxy
+- decode/encode
+- auto task canceling for similar requests
+- default http headers
+
+## Usage
+
+Create your own `Endpoint`
+
+```swift
+import Foundation
+import Networking
+
+enum JokesEndpoint: Endpoint {
+
+    case random(category: String)
+
+    var baseURL: URL {
+        URL(string: "https://official-joke-api.appspot.com/jokes")!
+    }
+
+    var path: String {
+        "random"
+    }
+}
+```
+
+Use `RequestService` to execute request with endpoint
+
+```swift
+import Foundation
+import Networking
+
+final class JokesServiceImp: RequestService, JokesService {
+
+    private init() {
+        super.init()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+    }
+
+    func loadRandomJoke(category: String, completion: @escaping ResultCompletion<Joke>) {
+        request(JokesEndpoint.random(category: category)) { result in
+            completion(result)
+        }
+    }
+}
+```
 
 ## About
 
