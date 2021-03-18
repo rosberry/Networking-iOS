@@ -55,6 +55,7 @@
 		851C311425B197FD0039A13F /* JokesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokesService.swift; sourceTree = "<group>"; };
 		851C311525B197FD0039A13F /* JokesServiceImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokesServiceImp.swift; sourceTree = "<group>"; };
 		851C311625B197FD0039A13F /* JokesEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokesEndpoint.swift; sourceTree = "<group>"; };
+		857B52F925FB4BF4005973BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85AF053C25B18E98007C98A7 /* SessionTaskService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTaskService.swift; sourceTree = "<group>"; };
 		85AF053E25B18E99007C98A7 /* GeneralRequestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralRequestError.swift; sourceTree = "<group>"; };
 		85AF053F25B18E99007C98A7 /* Error+Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+Networking.swift"; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 				85AF054225B18E99007C98A7 /* Header.swift */,
 				85AF054825B18E99007C98A7 /* JSONDecoder+Result.swift */,
 				85AF054425B18E99007C98A7 /* Method.swift */,
+				857B52F925FB4BF4005973BD /* Info.plist */,
 				85AF054325B18E99007C98A7 /* Parameters.swift */,
 				85AF054525B18E99007C98A7 /* RequestFactory.swift */,
 				85AF054625B18E99007C98A7 /* RequestService.swift */,
@@ -404,7 +406,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Networking.xcodeproj/Networking_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Networking/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -533,7 +535,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Networking.xcodeproj/Networking_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Networking/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
