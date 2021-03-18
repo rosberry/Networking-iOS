@@ -473,9 +473,8 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseURL = URL(fileURLWithPath: "")
         //When
         let expectation = self.expectation(description: "data")
-        let main = false
         let task = service.downloadRequest(DefaultEndpoint.test, queue: DispatchQueue.global(qos: .userInteractive), success: { url in
-            XCTAssertEqual(Thread.isMainThread, main)
+            XCTAssertFalse(Thread.isMainThread)
             expectation.fulfill()
         })
         //Then
@@ -489,9 +488,8 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseURL = URL(fileURLWithPath: "")
         //When
         let expectation = self.expectation(description: "data")
-        let main = true
         let task = service.downloadRequest(DefaultEndpoint.test, queue: .main, success: { url in
-            XCTAssertEqual(Thread.isMainThread, main)
+            XCTAssertTrue(Thread.isMainThread)
             expectation.fulfill()
         })
         //Then
