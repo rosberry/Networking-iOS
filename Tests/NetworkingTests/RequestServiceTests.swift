@@ -467,6 +467,38 @@ final class RequestServiceTests: ResultTests {
         wait(for: [expectation], timeout: timeout)
     }
 
+    func testDownloadRequestNotMainQueue() {
+        //Given
+        taskServiceMock.downloadTask = taskFactory.makeDownloadTask()
+        taskServiceMock.responseURL = URL(fileURLWithPath: "")
+        //When
+        let expectation = self.expectation(description: "data")
+        let main = false
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: DispatchQueue.global(qos: .userInteractive), success: { url in
+            XCTAssertEqual(Thread.isMainThread, main)
+            expectation.fulfill()
+        })
+        //Then
+        test(task)
+        wait(for: [expectation], timeout: timeout)
+    }
+
+    func testDownloadRequestMainQueue() {
+        //Given
+        taskServiceMock.downloadTask = taskFactory.makeDownloadTask()
+        taskServiceMock.responseURL = URL(fileURLWithPath: "")
+        //When
+        let expectation = self.expectation(description: "data")
+        let main = true
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .main, success: { url in
+            XCTAssertEqual(Thread.isMainThread, main)
+            expectation.fulfill()
+        })
+        //Then
+        test(task)
+        wait(for: [expectation], timeout: timeout)
+    }
+
     func testDownloadRequestFailureCompletionReturnsError() {
         //Given
         taskServiceMock.downloadTask = taskFactory.makeDownloadTask()
