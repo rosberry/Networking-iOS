@@ -16,7 +16,7 @@ final class JokesServiceImp: RequestService, JokesService {
     }
 
     func loadRandomJoke(category: String, completion: @escaping ResultCompletion<Joke>) {
-        request(JokesEndpoint.random(category: category)) { result in
+        request(JokesEndpoint.random(category: category), queue: .main) { result in
             completion(result)
         }
     }

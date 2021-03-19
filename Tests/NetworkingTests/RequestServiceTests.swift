@@ -8,6 +8,8 @@ import Networking
 
 final class RequestServiceTests: ResultTests {
 
+    private let timeout: Double = 15.0
+
     private lazy var taskServiceMock: SessionTaskServiceMock = .init()
     private lazy var requestFactoryMock: RequestFactoryMock = .init()
     private lazy var jsonDecoderMock: JSONDecoderMock = .init()
@@ -60,13 +62,13 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.request(DefaultEndpoint.test) { (result: Result<Human, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .background)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.human)
             expectation.fulfill()
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestResultCompletionReturnsError() {
@@ -76,13 +78,13 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test) { (result: Result<Human, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .unspecified)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestResultCompletionReturnsRequestFactoryError() {
@@ -91,13 +93,13 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test) { (result: Result<Human, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global()) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.requestFactoryMock.error)
             expectation.fulfill()
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestSuccessCompletionReturnsData() {
@@ -106,13 +108,13 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.request(DefaultEndpoint.test, success: { (responseHuman: Human) in
+        let task = service.request(DefaultEndpoint.test, queue: .main, success: { (responseHuman: Human) in
             self.test(responseHuman, with: self.human)
             expectation.fulfill()
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableRequestFailureCompletionReturnsError() {
@@ -122,13 +124,13 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test, success: { (_: Human) in }, failure: { error in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .background), success: { (_: Human) in }, failure: { error in
             self.testError(error, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Decodable upload requests
@@ -140,13 +142,13 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData)) { (result: Result<Human, Error>) in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .unspecified)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.human)
             expectation.fulfill()
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableUploadRequestResultCompletionReturnsError() {
@@ -157,13 +159,13 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData)) { (result: Result<Human, Error>) in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .background)) { (result: Result<Human, Error>) in
             self.testResult(result, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableUploadRequestSuccessCompletionReturnsData() {
@@ -173,13 +175,13 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = humanData
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), success: { (responseHuman: Human) in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .background), success: { (responseHuman: Human) in
             self.test(responseHuman, with: self.human)
             expectation.fulfill()
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDecodableUploadRequestSuccessCompletionReturnsError() {
@@ -190,13 +192,13 @@ final class RequestServiceTests: ResultTests {
         jsonDecoderMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), success: { (_: Human) in }, failure: { error in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(uploadData), queue: .global(qos: .userInitiated), success: { (_: Human) in }, failure: { error in
             self.testError(error, with: self.jsonDecoderMock.error)
             expectation.fulfill()
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Data requests
@@ -213,7 +215,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestResultCompletionReturnsError() {
@@ -222,13 +224,13 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test) { result in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .unspecified)) { (result:Result<Human, Error>) in
             self.testResult(result, with: self.taskServiceMock.error)
             expectation.fulfill()
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestResultCompletionReturnsRequestFactoryError() {
@@ -238,13 +240,13 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test) { (result: Result<Data, Error>) in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .userInteractive)) { (result: Result<Data, Error>) in
             self.testResult(result, with: self.requestFactoryMock.error)
             expectation.fulfill()
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestSuccessCompletionReturnsData() {
@@ -253,13 +255,13 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = Data()
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.request(DefaultEndpoint.test, success: { data in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .utility), success: { data in
             self.test(data, with: self.taskServiceMock.responseData)
             expectation.fulfill()
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testRequestFailureCompletionReturnsError() {
@@ -268,7 +270,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.request(DefaultEndpoint.test, success: { _ in
+        let task = service.request(DefaultEndpoint.test, queue: .global(qos: .background), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.taskServiceMock.error)
@@ -276,7 +278,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Upload requests
@@ -314,7 +316,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestResultCompletionReturnsError() {
@@ -330,7 +332,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestResultCompletionReturnsRequestFactoryError() {
@@ -347,7 +349,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestSuccessCompletionReturnsData() {
@@ -357,13 +359,13 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseData = Data()
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), success: { data in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), queue: .global(qos: .default), success: { data in
             self.test(data, with: self.taskServiceMock.responseData)
             expectation.fulfill()
         })
         //Then
         test(task as? URLSessionUploadTask)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestFailureCompletionReturnsError() {
@@ -373,7 +375,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), success: { _ in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), queue: .global(), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.taskServiceMock.error)
@@ -381,7 +383,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task as? URLSessionUploadTask)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testUploadRequestFailureCompletionReturnsRequestFactoryError() {
@@ -392,7 +394,7 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), success: { _ in
+        let task = service.uploadRequest(DefaultEndpoint.test, task: .data(expectData), queue: .global(qos: .background), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.requestFactoryMock.error)
@@ -400,7 +402,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Download requests
@@ -417,7 +419,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestResultCompletionReturnsError() {
@@ -432,7 +434,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestResultCompletionReturnsRequestFactoryError() {
@@ -447,7 +449,7 @@ final class RequestServiceTests: ResultTests {
         }
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestSuccessCompletionReturnsData() {
@@ -456,13 +458,43 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.responseURL = URL(fileURLWithPath: "")
         //When
         let expectation = self.expectation(description: "data")
-        let task = service.downloadRequest(DefaultEndpoint.test, success: { url in
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .global(qos: .userInteractive), success: { url in
             self.test(url, with: self.taskServiceMock.responseURL)
             expectation.fulfill()
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
+    }
+
+    func testDownloadRequestNotMainQueue() {
+        //Given
+        taskServiceMock.downloadTask = taskFactory.makeDownloadTask()
+        taskServiceMock.responseURL = URL(fileURLWithPath: "")
+        //When
+        let expectation = self.expectation(description: "data")
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: DispatchQueue.global(qos: .userInteractive), success: { url in
+            XCTAssertFalse(Thread.isMainThread)
+            expectation.fulfill()
+        })
+        //Then
+        test(task)
+        wait(for: [expectation], timeout: timeout)
+    }
+
+    func testDownloadRequestMainQueue() {
+        //Given
+        taskServiceMock.downloadTask = taskFactory.makeDownloadTask()
+        taskServiceMock.responseURL = URL(fileURLWithPath: "")
+        //When
+        let expectation = self.expectation(description: "data")
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .main, success: { url in
+            XCTAssertTrue(Thread.isMainThread)
+            expectation.fulfill()
+        })
+        //Then
+        test(task)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestFailureCompletionReturnsError() {
@@ -471,7 +503,7 @@ final class RequestServiceTests: ResultTests {
         taskServiceMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.downloadRequest(DefaultEndpoint.test, success: { _ in
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .global(qos: .utility), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.taskServiceMock.error)
@@ -479,7 +511,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         test(task)
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     func testDownloadRequestFailureCompletionReturnsRequestFactoryError() {
@@ -488,7 +520,7 @@ final class RequestServiceTests: ResultTests {
         requestFactoryMock.error = NetworkingError.wrongURL
         //When
         let expectation = self.expectation(description: "error")
-        let task = service.downloadRequest(DefaultEndpoint.test, success: { _ in
+        let task = service.downloadRequest(DefaultEndpoint.test, queue: .global(qos: .userInitiated), success: { _ in
             XCTFail("Request must return the error.")
         }, failure: { error in
             self.testError(error, with: self.requestFactoryMock.error)
@@ -496,7 +528,7 @@ final class RequestServiceTests: ResultTests {
         })
         //Then
         XCTAssertNil(task, "Task must be nil if request factory returns error.")
-        wait(for: [expectation], timeout: 0.05)
+        wait(for: [expectation], timeout: timeout)
     }
 
     // MARK: - Private
