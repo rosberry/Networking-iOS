@@ -47,7 +47,7 @@ open class RequestService {
     // MARK: - Decoding
 
     @discardableResult
-    public func request<Response: Decodable, E: Endpoint>(_ endpoint: E,
+    open func request<Response: Decodable, E: Endpoint>(_ endpoint: E,
                                                           queue: DispatchQueue = .main,
                                                           completion: @escaping ResultCompletion<Response>) -> URLSessionDataTask? {
         request(endpoint) { [weak self, unowned decoder] result in
@@ -61,7 +61,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func request<Response: Decodable, E: Endpoint>(_ endpoint: E,
+    open func request<Response: Decodable, E: Endpoint>(_ endpoint: E,
                                                           queue: DispatchQueue = .main,
                                                           success: @escaping Success<Response>,
                                                           failure: Failure? = nil) -> URLSessionDataTask? {
@@ -71,7 +71,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func uploadRequest<Response: Decodable, E: Endpoint>(_ endpoint: E,
+    open func uploadRequest<Response: Decodable, E: Endpoint>(_ endpoint: E,
                                                                 task: UploadTask,
                                                                 queue: DispatchQueue = .main,
                                                                 completion: @escaping ResultCompletion<Response>) -> URLSessionUploadTask? {
@@ -86,7 +86,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func uploadRequest<Response: Decodable, E: Endpoint>(_ endpoint: E,
+    open func uploadRequest<Response: Decodable, E: Endpoint>(_ endpoint: E,
                                                                 task: UploadTask,
                                                                 queue: DispatchQueue = .main,
                                                                 success: @escaping Success<Response>,
@@ -99,7 +99,7 @@ open class RequestService {
     // MARK: - Requests
 
     @discardableResult
-    public func request<E: Endpoint>(_ endpoint: E, completion: @escaping ResultCompletion<Data>) -> URLSessionDataTask? {
+    open func request<E: Endpoint>(_ endpoint: E, completion: @escaping ResultCompletion<Data>) -> URLSessionDataTask? {
         do {
             let request = try requestFactory.makeRequest(endpoint: endpoint)
             let task = sessionTaskService.dataTask(with: request, completion: completion)
@@ -114,7 +114,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func request<E: Endpoint>(_ endpoint: E,
+    open func request<E: Endpoint>(_ endpoint: E,
                                      queue: DispatchQueue = .main,
                                      success: @escaping Success<Data>,
                                      failure: Failure? = nil) -> URLSessionDataTask? {
@@ -124,7 +124,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func uploadRequest<E: Endpoint>(_ endpoint: E,
+    open func uploadRequest<E: Endpoint>(_ endpoint: E,
                                            task: UploadTask,
                                            completion: @escaping ResultCompletion<Data>) -> URLSessionUploadTask? {
         do {
@@ -147,7 +147,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func uploadRequest<E: Endpoint>(_ endpoint: E,
+    open func uploadRequest<E: Endpoint>(_ endpoint: E,
                                            task: UploadTask,
                                            queue: DispatchQueue = .main,
                                            success: @escaping Success<Data>,
@@ -158,7 +158,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func downloadRequest<E: Endpoint>(_ endpoint: E, completion: @escaping ResultCompletion<URL>) -> URLSessionDownloadTask? {
+    open func downloadRequest<E: Endpoint>(_ endpoint: E, completion: @escaping ResultCompletion<URL>) -> URLSessionDownloadTask? {
         do {
             let request = try requestFactory.makeRequest(endpoint: endpoint)
             let task = sessionTaskService.downloadTask(with: request, completion: completion)
@@ -173,7 +173,7 @@ open class RequestService {
     }
 
     @discardableResult
-    public func downloadRequest<E: Endpoint>(_ endpoint: E,
+    open func downloadRequest<E: Endpoint>(_ endpoint: E,
                                              queue: DispatchQueue = .main,
                                              success: @escaping Success<URL>,
                                              failure: Failure? = nil) -> URLSessionDownloadTask? {
